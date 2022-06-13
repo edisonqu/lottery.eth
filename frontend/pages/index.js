@@ -5,13 +5,13 @@ import styles from "../styles/Home.module.css";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
-import { abi } from "../constants/abi";
+import { abi, address } from "../constants/abi";
 import { Button, Hero, Icon, useNotification } from "web3uikit";
 import { formatTime } from "../utils/formatTime";
 
 const injected = new InjectedConnector();
-const CONTRACT_ADDRESS = "0xb5F1a8328CB3C6370881891a9526A42ed77c5Bdb";
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const ticketImg = "/ticket.svg";
 
 export default function Home() {
@@ -27,6 +27,8 @@ export default function Home() {
   const [lotteries, setLotteries] = useState([]);
   const [isCreatingLottery, setIsCreatingLottery] = useState(false);
   const [isBuyingTicket, setIsBuyingTicket] = useState(false);
+  const [isDeclaringWinner, setIsDeclaringWinner] = useState(false);
+
   const dispatch = useNotification();
 
   async function connect(provider) {
@@ -49,13 +51,13 @@ export default function Home() {
 
   async function createLottery(ticketPrice, seconds) {
     try {
-      let price = ethers.utils.parseEther("0.0001");
-      let time = 60 * 1;
-      contract.createLottery(price, time);
       setIsCreatingLottery(true);
+      let price = ethers.utils.parseEther("0.0001");
+      let time = 60 * 3;
+      contract.createLottery(price, time);
     } catch (error) {
-      setIsCreatingLottery(false);
       console.log(error);
+      setIsCreatingLottery(false);
     }
   }
 
@@ -66,6 +68,16 @@ export default function Home() {
     } catch (error) {
       console.log(error);
       setIsBuyingTicket(false);
+    }
+  }
+
+  async function declareWinner(lotteryId) {
+    try {
+      setIsDeclaringWinner(true);
+      await contract.declareWinner(lotteryId);
+    } catch (error) {
+      console.log(error);
+      setIsDeclaringWinner(false);
     }
   }
 
@@ -95,7 +107,7 @@ export default function Home() {
     if (active) {
       if (chainId !== 4) switchToRinkebyNetwork();
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+      const contract = new ethers.Contract(address, abi, signer);
       setContract(contract);
     }
   }, [active, provider, chainId]);
@@ -135,8 +147,34 @@ export default function Home() {
       });
 
       contract.on("WinnerDeclared", (requestId, lotteryId, winner) => {
+        let parsedLotteryId = parseInt(lotteryId, 16);
+
+        setIsDeclaringWinner(false);
         updateLotteries();
-        console.log("Winner declared");
+        handleNewNotification({
+          type: "Success",
+          title: "Winner declared",
+          message: `Address ${winner} has won the lottery ${
+            parsedLotteryId + 1
+          }!`,
+        });
+      });
+
+      contract.on("LotteryFinished", (lotteryId, winner) => {
+        let parsedLotteryId = parseInt(lotteryId, 16);
+        let message = `Lottery ${parsedLotteryId + 1} has finished! ${
+          winner === ZERO_ADDRESS
+            ? "There were not participants"
+            : `Winner address is ${winner}`
+        }`;
+
+        setIsDeclaringWinner(false);
+        updateLotteries();
+        handleNewNotification({
+          type: "Success",
+          title: "Lottery finished",
+          message,
+        });
       });
     }
   }, [contract]);
@@ -150,9 +188,9 @@ export default function Home() {
       </Head>
       <>
         <h1 className={styles.title}>Lottery</h1>
-        <h5 className={styles.info}>
+        <h3 className={styles.info}>
           Your gambling time with your friends is just 1 click away!
-        </h5>
+        </h3>
         {active ? (
           <>
             {account == CONTRACT_OWNER ? (
@@ -192,17 +230,15 @@ export default function Home() {
 
                 // Parse big number to number
                 let endDateWasReached = new Date(endDate * 1000) < new Date();
-                console.log(parsedLotteryId);
-                console.log(endDateWasReached);
 
                 return (
                   <Hero
                     align="left"
                     className={styles.hero}
-                    height="240px"
+                    height="300px"
                     linearGradient="linear-gradient(113.54deg, rgba(60, 87, 140, 0.5) 14.91%, rgba(70, 86, 169, 0.5) 43.21%, rgba(125, 150, 217, 0.345) 44.27%, rgba(129, 161, 225, 0.185) 55.76%), linear-gradient(151.07deg, #141659 33.25%, #4152A7 98.24%)"
                     rounded="20px"
-                    textColor="#fff"
+                    textColor="#ebebeb"
                     title={"Lottery " + (parsedLotteryId + 1)}
                     key={i}
                   >
@@ -236,7 +272,7 @@ export default function Home() {
                         </span>
                       </div>
                     </div>
-                    <div>
+                    <div className={styles.buttonsContainer}>
                       <Button
                         icon="plus"
                         disabled={endDateWasReached}
@@ -246,6 +282,18 @@ export default function Home() {
                         onClick={() => participate(lotteryId, ticketPrice)}
                         theme="primary"
                       />
+                      {account == CONTRACT_OWNER && (
+                        <Button
+                          disabled={isFinished || !endDateWasReached}
+                          text="Declare winner"
+                          theme="primary"
+                          icon="check"
+                          type="button"
+                          isLoading={isDeclaringWinner}
+                          loadingText="Declaring winner..."
+                          onClick={() => declareWinner(lotteryId)}
+                        />
+                      )}
                     </div>
                   </Hero>
                 );
@@ -257,7 +305,7 @@ export default function Home() {
             <Button
               text="Connect Metamask"
               theme="colored"
-              icon="metamaskLined"
+              icon="metamask"
               color="yellow"
               onClick={() => connect(injected)}
               type="button"

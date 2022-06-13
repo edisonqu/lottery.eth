@@ -4,6 +4,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  font-size: 60px;
 }
 
 .info {
@@ -59,6 +60,10 @@
 
 .lotteryButton {
   margin: 0 5px;
+}
+
+.buttonsContainer button {
+  margin: 5px 0;
 }
 
 .hero {

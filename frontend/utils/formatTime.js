@@ -85,7 +85,7 @@ module.exports = {
     }
 
     // Calculating HH:MM:YYYY
-    hours = parseInt(extraTime / 3600, 10) - 3;
+    hours = parseInt(extraTime / 3600, 10) - 3; // Resting 3 hours for timezone
     minutes = parseInt((extraTime % 3600) / 60, 10);
     secondss = parseInt((extraTime % 3600) % 60, 10);
 
