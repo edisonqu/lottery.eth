@@ -31,6 +31,7 @@ contract LotteryGame is VRFConsumerBase {
 
     event RandomnessRequested(bytes32, uint256);
     event WinnerDeclared(bytes32, uint256, address);
+    event LotteryFinished(uint256, address);
     event PrizeIncreased(uint256, uint256);
     event LotteryCreated(uint256, uint256, uint256, uint256);
 
@@ -98,12 +99,16 @@ contract LotteryGame is VRFConsumerBase {
         Lottery storage lottery = lotteries[_lotteryId];
         require(block.timestamp > lottery.endDate,"Lottery is still active");
         require(!lottery.isFinished,"Lottery has already declared a winner");
-        if(playersCount[_lotteryId] == 1) {
+        lottery.isFinished = true;
+        if (playersCount[_lotteryId] == 0) {
+            lottery.winner = address(0);
+            emit LotteryFinished(lottery.lotteryId, lottery.winner);
+        } else if(playersCount[_lotteryId] == 1) {
             require(lottery.participants[0] != address(0), "There has been no participation in this lottery");
             lottery.winner = lottery.participants[0];
-            lottery.isFinished = true;
             (bool success, ) = lottery.winner.call{value: lottery.prize }("");
             require(success, "Transfer failed");
+            emit LotteryFinished(lottery.lotteryId, lottery.winner);
         } else {
             require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK");
             bytes32 requestId = requestRandomness(keyHash, fee);
@@ -116,7 +121,6 @@ contract LotteryGame is VRFConsumerBase {
         uint256 _lotteryId = lotteryRandomnessRequest[requestId];
         Lottery storage lottery = lotteries[_lotteryId];
         uint256 winner = randomness.mod(lottery.participants.length);
-        lottery.isFinished = true;
         lottery.winner = lottery.participants[winner];
         delete lotteryRandomnessRequest[requestId];
         delete playersCount[_lotteryId];
