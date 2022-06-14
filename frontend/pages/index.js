@@ -285,9 +285,11 @@ export default function Home() {
                       {account == CONTRACT_OWNER && (
                         <Button
                           disabled={isFinished || !endDateWasReached}
-                          text="Declare winner"
-                          theme="primary"
-                          icon="check"
+                          text={
+                            isFinished ? "Winner declared" : "Declare winner"
+                          }
+                          theme={isFinished ? "translucent" : "primary"}
+                          icon={isFinished ? "lockClosed" : "check"}
                           type="button"
                           isLoading={isDeclaringWinner}
                           loadingText="Declaring winner..."
