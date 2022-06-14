@@ -230,7 +230,6 @@ export default function Home() {
                   onClick={() => setIsModalOpen(true)}
                   loadingText="Creating lottery..."
                   isLoading={isCreatingLottery}
-                  className={styles.buttonMetamask}
                   isFullWidth={true}
                 />
                 <Modal
@@ -409,15 +408,18 @@ export default function Home() {
           </>
         ) : (
           <div className={styles.disconnected}>
-            <Button
-              text="Connect Metamask"
-              theme="primary"
-              icon="metamask"
-              onClick={() => connect(injected)}
-              type="button"
+            <button
               className={styles.buttonMetamask}
-              isFullWidth={true}
-            />
+              onClick={() => connect(injected)}
+            >
+              <Icon
+                fill="#000000"
+                size={16}
+                svg="metamask"
+                style={{ marginRight: "10px" }}
+              />
+              Connect metamask
+            </button>
           </div>
         )}
       </>

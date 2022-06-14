@@ -21,13 +21,7 @@ const Footer = () => {
         </a>
       </div>
       <div className={styles.footerContainerSmall}>
-        <Image
-          src={githubLink}
-          style={{ paddingRight: "10px" }}
-          alt="Github logo"
-          width={48}
-          height={48}
-        />
+        <Image src={githubLink} alt="Github logo" width={48} height={48} />
         <a
           href="https://github.com/AlanRacciatti/Ethereum-Wave-Portal"
           target="_blank"
