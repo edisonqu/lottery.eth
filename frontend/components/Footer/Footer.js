@@ -23,7 +23,7 @@ const Footer = () => {
       <div className={styles.footerContainerSmall}>
         <Image src={githubLink} alt="Github logo" width={48} height={48} />
         <a
-          href="https://github.com/AlanRacciatti/Ethereum-Wave-Portal"
+          href="https://github.com/AlanRacciatti/lottery.eth"
           target="_blank"
           rel="noreferrer"
         >
