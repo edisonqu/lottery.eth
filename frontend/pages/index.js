@@ -16,6 +16,7 @@ import {
   Input,
 } from "web3uikit";
 import { formatTime } from "../utils/formatTime";
+import Footer from "../components/Footer/Footer";
 
 const injected = new InjectedConnector();
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
@@ -421,6 +422,7 @@ export default function Home() {
           </div>
         )}
       </>
+      <Footer />
     </div>
   );
 }

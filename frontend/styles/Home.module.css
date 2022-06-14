@@ -5,6 +5,7 @@
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   font-size: 60px;
+  margin-bottom: 0;
 }
 
 .info {
