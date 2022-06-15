@@ -3,7 +3,7 @@ import Image from "next/image";
 const twitterLink = "/twitter-logo.svg";
 import styles from "../../styles/Footer.module.css";
 const etherLink = "/ethereum.svg";
-const githubLink = "/github.svg";
+const githubLink = "/github.png";
 const TWITTER_HANDLE = "alan_racciatti1";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
@@ -21,9 +21,7 @@ const Footer = () => {
         </a>
       </div>
       <div className={styles.footerContainerSmall}>
-        <div className={styles.githubLogo}>
-          <Image src={githubLink} alt="Github logo" width={48} height={48} />
-        </div>
+        <Image src={githubLink} alt="Github logo" width={64} height={48} />
         <a
           href="https://github.com/AlanRacciatti/lottery.eth"
           target="_blank"
