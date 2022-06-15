@@ -121,6 +121,16 @@ I'm actively working in this project, there are lots of things to work in, princ
 
 Are you interested in adding new features to this project? Your ideas are always welcome, for any change you want to do just make a pull request or for major changes try making an issue.
 
+Here are some pending TODO's that I have:
+
+- [ ] Improve cards UI
+- [ ] Add a presentation section when wallet isn't connected
+- [ ] Create a help button that displays a modal with instructions
+- [ ] Refactor index.js
+- [ ] Create a filter to show lotteries in certain conditions (active, finished, ordered by prize, etc.)
+- [ ] Show winner address in lottery cards
+- [ ] Fix unavailable styled components in Next.js deploy
+
 ### Authors and acknowledgement
 
 This project was based on the [Jonathan Burmester](https://dev.to/johbu) Creating a Lottery with Hardhat and Chainlink tutorial. You can find it at [dev.to](https://dev.to/johbu/creating-a-lottery-with-hardhat-and-chainlink-385f)
