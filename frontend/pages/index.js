@@ -410,18 +410,15 @@ export default function Home() {
           </>
         ) : (
           <div className={styles.disconnected}>
-            <button
-              className={styles.buttonMetamask}
+            <Button
+              icon="metamask"
+              text="Create lottery"
               onClick={() => connect(injected)}
-            >
-              <Icon
-                fill="#000000"
-                size={16}
-                svg="metamask"
-                style={{ marginRight: "10px" }}
-              />
-              Connect metamask
-            </button>
+              theme="colored"
+              color="yellow"
+              className={styles.buttonMetamask}
+              isFullWidth
+            />
           </div>
         )}
       </>
