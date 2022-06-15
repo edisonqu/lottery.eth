@@ -412,7 +412,7 @@ export default function Home() {
           <div className={styles.disconnected}>
             <Button
               icon="metamask"
-              text="Create lottery"
+              text="Connect Metamask"
               onClick={() => connect(injected)}
               theme="colored"
               color="yellow"
