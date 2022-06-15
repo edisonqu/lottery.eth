@@ -1,5 +1,6 @@
 module.exports = {
   address: "0x86149e3695A7F0B26383BeceD7Bb65D22972e9d0",
+  appChainId: 4,
   abi: [
     {
       inputs: [

@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
-import { abi, address } from "../constants/abi";
+import { abi, address, appChainId } from "../constants/contract";
 import {
   Button,
   Hero,
@@ -102,11 +102,13 @@ export default function Home() {
     }
   }
 
-  async function switchToRinkebyNetwork() {
+  async function switchToAppNetwork() {
     try {
+      // parse to non-zero hexadecimal string
+      let appChainIdHex = ethers.utils.hexValue(appChainId);
       await provider.provider.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x4" }],
+        params: [{ chainId: appChainIdHex }],
       });
     } catch (error) {
       console.log(error);
@@ -132,7 +134,7 @@ export default function Home() {
 
   useEffect(() => {
     if (active) {
-      if (chainId !== 4) switchToRinkebyNetwork();
+      if (chainId !== appChainId) switchToAppNetwork();
       const signer = provider.getSigner();
       const contract = new ethers.Contract(address, abi, signer);
       setContract(contract);
