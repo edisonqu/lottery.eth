@@ -21,7 +21,7 @@ const Footer = () => {
         </a>
       </div>
       <div className={styles.footerContainerSmall}>
-        <Image src={githubLink} alt="Github logo" width={64} height={48} />
+        <Image src={githubLink} alt="Github logo" width={72} height={48} />
         <a
           href="https://github.com/AlanRacciatti/lottery.eth"
           target="_blank"
