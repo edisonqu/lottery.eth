@@ -153,7 +153,7 @@ export default function Home() {
       contract.on(
         "LotteryCreated",
         (lotteryId, ticketPrice, prize, endDate) => {
-          lotteryId = parseInt(lotteryId, 16);
+          lotteryId = parseInt(lotteryId);
           updateLotteries();
           handleNewNotification({
             type: "Success",
@@ -169,7 +169,7 @@ export default function Home() {
         setIsBuyingTicket(false);
         updateLotteries();
 
-        let parsedLotteryId = parseInt(lotteryId, 16);
+        let parsedLotteryId = parseInt(lotteryId);
         let parsedLotterPrize = ethers.utils.formatEther(lotteryPrize);
         handleNewNotification({
           type: "Success",
@@ -181,7 +181,7 @@ export default function Home() {
       });
 
       contract.on("WinnerDeclared", (requestId, lotteryId, winner) => {
-        let parsedLotteryId = parseInt(lotteryId, 16);
+        let parsedLotteryId = parseInt(lotteryId);
 
         setIsDeclaringWinner(false);
         updateLotteries();
@@ -195,7 +195,7 @@ export default function Home() {
       });
 
       contract.on("LotteryFinished", (lotteryId, winner) => {
-        let parsedLotteryId = parseInt(lotteryId, 16);
+        let parsedLotteryId = parseInt(lotteryId);
         let message = `Lottery ${parsedLotteryId + 1} has finished! ${
           winner === ZERO_ADDRESS
             ? "There were not participants"
@@ -334,7 +334,8 @@ export default function Home() {
                 ] = lottery;
 
                 // parse lottery id from 0x00 to 0
-                let parsedLotteryId = parseInt(lotteryId, 16);
+                let parsedLotteryId = parseInt(lotteryId);
+                console.log(parsedLotteryId + 1);
                 let parsedTicketPrice = ethers.utils.formatEther(ticketPrice);
                 let parsedPrize = ethers.utils.formatEther(prize);
                 let parsedEndDate = formatTime(endDate);
