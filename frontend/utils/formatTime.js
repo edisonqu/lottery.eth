@@ -4,6 +4,9 @@ module.exports = {
     // readable format
     let ans = "";
 
+    // timzeone
+    let timezone = new Date().getTimezoneOffset() / 60;
+
     // Number of days in month
     // in normal year
     let daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -85,7 +88,8 @@ module.exports = {
     }
 
     // Calculating HH:MM:YYYY
-    hours = parseInt(extraTime / 3600, 10) - 3; // Resting 3 hours for timezone
+    hours = parseInt(extraTime / 3600, 10);
+    hours = hours - timezone < 0 ? hours - timezone + 24 : hours - timezone; // Adjusting for timezone
     minutes = parseInt((extraTime % 3600) / 60, 10);
     secondss = parseInt((extraTime % 3600) % 60, 10);
 
