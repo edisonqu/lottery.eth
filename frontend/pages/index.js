@@ -121,10 +121,14 @@ export default function Home() {
   }
 
   function handleModalOk() {
+    let { ticketPrice, days, hours, minutes } = lotteryData;
+
+    if (!ticketPrice || !days || !hours || !minutes)
+      return alert("Please fill all fields!");
+
     setIsModalOpen(false);
-    let ticketPrice = ethers.utils.parseEther(
-      lotteryData.ticketPrice.toString()
-    );
+
+    ticketPrice = ethers.utils.parseEther(lotteryData.ticketPrice.toString());
     let seconds =
       lotteryData.days * 24 * 60 * 60 +
       lotteryData.hours * 60 * 60 +
