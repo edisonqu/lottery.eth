@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useWeb3React } from "@web3-react/core";
-import { InjectedConnector } from "@web3-react/injected-connector";
+import Footer from "../components/Footer/Footer";
 import { ethers } from "ethers";
 import { abi, address, appChainId } from "../constants/contract";
+
+import { useWeb3React } from "@web3-react/core";
 import {
   Button,
   Hero,
@@ -15,10 +16,10 @@ import {
   Typography,
   Input,
 } from "web3uikit";
-import { formatTime } from "../utils/formatTime";
-import Footer from "../components/Footer/Footer";
 
-const injected = new InjectedConnector();
+import { formatTime } from "../utils/formatTime";
+import { injected, walletconnect } from "../utils/connectors";
+
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const ticketImg = "/ticket.svg";
@@ -410,15 +411,26 @@ export default function Home() {
           </>
         ) : (
           <div className={styles.disconnected}>
-            <Button
-              icon="metamask"
-              text="Connect Metamask"
-              onClick={() => connect(injected)}
-              theme="colored"
-              color="yellow"
-              className={styles.buttonMetamask}
-              isFullWidth
-            />
+            <div className={styles.buttonWalletContainer}>
+              <Button
+                icon="metamask"
+                text="Connect Metamask"
+                onClick={() => connect(injected)}
+                theme="colored"
+                color="yellow"
+                isFullWidth
+              />
+            </div>
+            <div className={styles.buttonWalletContainer}>
+              <Button
+                text="Connect WalletConnect"
+                onClick={() => connect(walletconnect)}
+                theme="colored"
+                color="blue"
+                className={styles.buttonWallet}
+                isFullWidth
+              />
+            </div>
           </div>
         )}
       </>
