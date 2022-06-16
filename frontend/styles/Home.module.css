@@ -63,6 +63,11 @@
   margin: 0 5px;
 }
 
+.lotteryWinner {
+  color: #EFB810
+}
+
+
 .buttonsContainer button {
   margin: 5px 0;
 }

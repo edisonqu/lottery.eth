@@ -120,6 +120,20 @@ export default function Home() {
     setLotteryData({ ...lotteryData, [name]: +value });
   }
 
+  function showLotteryWinner(winner, lotteryId) {
+    let message =
+      winner == ZERO_ADDRESS
+        ? `No one participated in lottery ${lotteryId}`
+        : `${winner} won the lottery ${lotteryId}`;
+
+    handleNewNotification({
+      type: "success",
+      icon: "check",
+      title: "Winner!",
+      message,
+    });
+  }
+
   function handleModalOk() {
     let { ticketPrice, days, hours, minutes } = lotteryData;
 
@@ -335,7 +349,6 @@ export default function Home() {
 
                 // parse lottery id from 0x00 to 0
                 let parsedLotteryId = parseInt(lotteryId);
-                console.log(parsedLotteryId + 1);
                 let parsedTicketPrice = ethers.utils.formatEther(ticketPrice);
                 let parsedPrize = ethers.utils.formatEther(prize);
                 let parsedEndDate = formatTime(endDate);
@@ -391,6 +404,7 @@ export default function Home() {
                         text="Buy a ticket"
                         isLoading={isBuyingTicket}
                         loadingText="Buying ticket..."
+                        isFullWidth
                         onClick={() => participate(lotteryId, ticketPrice)}
                         theme="primary"
                       />
@@ -405,10 +419,26 @@ export default function Home() {
                           type="button"
                           isLoading={isDeclaringWinner}
                           loadingText="Declaring winner..."
+                          isFullWidth
                           onClick={() => declareWinner(lotteryId)}
                         />
                       )}
                     </div>
+                    <Button
+                      text={
+                        lottery.isFinished
+                          ? "Show winner"
+                          : "Winner wasn't declared"
+                      }
+                      disabled={!lottery.isFinished}
+                      type="button"
+                      theme="colored"
+                      color="yellow"
+                      isFullWidth
+                      onClick={() =>
+                        showLotteryWinner(lottery.winner, parsedLotteryId + 1)
+                      }
+                    />
                   </Hero>
                 );
               })}
