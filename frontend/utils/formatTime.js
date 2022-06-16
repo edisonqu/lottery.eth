@@ -89,9 +89,10 @@ module.exports = {
 
     // Calculating HH:MM:YYYY
     hours = parseInt(extraTime / 3600, 10);
-    hours = hours - timezone < 0 ? hours - timezone + 24 : hours - timezone; // Adjusting for timezone
     minutes = parseInt((extraTime % 3600) / 60, 10);
     secondss = parseInt((extraTime % 3600) % 60, 10);
+
+    hours = hours - timezone < 0 ? hours - timezone + 24 : hours - timezone; // Adjusting for timezone
 
     ans += date.toString();
     ans += "/";
