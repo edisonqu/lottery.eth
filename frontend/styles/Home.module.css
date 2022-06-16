@@ -22,6 +22,7 @@
 
 .disconnected {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   width: 90%;
   max-width: 500px;
@@ -29,7 +30,7 @@
 }
 
 .buttonWalletContainer {
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 
 .lotteries {
