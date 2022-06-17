@@ -1,78 +1,7 @@
-.title {
-  text-align: center;
-  background: -webkit-linear-gradient(left,#60c657 30%,#35aee2 60%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  font-size: 60px;
-  margin-bottom: 0;
-}
-
-.info {
-  text-align: center;
-}
-
 .connected {
   display: flex;
   justify-content: center;
   width: 90%;
   max-width: 250px;
   margin: auto;
-}
-
-.disconnected {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 90%;
-  max-width: 500px;
-  margin: auto;
-}
-
-.buttonWalletContainer {
-  margin: 5px 10px;
-}
-
-.lotteries {
-  width: 90%;
-  max-width: 1000px;
-  margin: 30px auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
-
-.lotteryData {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.lotteryPrize {
-  display: flex;
-  margin: 0 0 15px;
-}
-
-.lotteryItem {
-  display: flex;
-}
-
-.lotteryButton {
-  margin: 0 5px;
-}
-
-.lotteryWinner {
-  color: #EFB810
-}
-
-
-.buttonsContainer button {
-  margin: 5px 0;
-}
-
-.hero {
-  margin: 10px;
-  max-width: 300px;
 }

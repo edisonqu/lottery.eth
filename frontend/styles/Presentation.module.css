@@ -1,0 +1,13 @@
+.title {
+  text-align: center;
+  background: -webkit-linear-gradient(left, #60c657 30%, #35aee2 60%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-size: 60px;
+  margin-bottom: 0;
+}
+
+.info {
+  text-align: center;
+}
