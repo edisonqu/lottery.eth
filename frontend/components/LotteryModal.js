@@ -3,6 +3,7 @@ import { Modal, Icon, Typography, Input } from "web3uikit";
 import { ethers } from "ethers";
 
 import useContract from "../hooks/useContract";
+import { alertWarning } from "../utils/swal";
 
 const LotteryModal = ({
   isModalOpen,
@@ -35,7 +36,7 @@ const LotteryModal = ({
       typeof hours !== "number" ||
       typeof minutes !== "number"
     )
-      return alert("Please fill all fields!");
+      return alertWarning("Please fill all fields!");
 
     setIsModalOpen(false);
 

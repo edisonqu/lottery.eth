@@ -13,6 +13,7 @@ import { useNotification } from "web3uikit";
 import useContract from "../hooks/useContract";
 
 import handleNewNotification from "../utils/handleNewNotification";
+import { alertError } from "../utils/swal";
 import Presentation from "../components/Presentation";
 import ConnectWallet from "../components/ConnectWallet";
 
@@ -20,7 +21,7 @@ const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export default function Home() {
-  const { account, active } = useWeb3React();
+  const { account, active, deactivate } = useWeb3React();
 
   const dispatch = useNotification();
   const contract = useContract();
@@ -39,6 +40,8 @@ export default function Home() {
         let lotteries = await contract.getLotteries();
         setLotteries(lotteries);
       } catch (error) {
+        deactivate();
+        alertError("An error ocurred, please try connecting again.");
         console.log(error);
       }
     }
