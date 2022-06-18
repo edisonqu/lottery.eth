@@ -3,10 +3,20 @@
   max-width: 300px;
 }
 
+.dropdownContainer {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.dropdown {
+  width: 90%;
+  margin: auto;
+}
+
 .lotteries {
   width: 90%;
   max-width: 1000px;
-  margin: 30px auto;
+  margin: 10px auto 30px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

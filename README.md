@@ -130,7 +130,7 @@ Here are some pending TODO's that I have:
 
 - [x] Add a presentation section when wallet isn't connected
 - [x] Refactor index.js
-- [ ] Create a filter to show lotteries in certain conditions (active, finished, ordered by prize, etc.)
+- [x] Create a filter to show lotteries in certain conditions (active, finished, ordered by prize, etc.)
 - [x] Show winner address in lottery cards
 - [x] Fix unavailable styled components in Next.js deploy
 
