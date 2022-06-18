@@ -6,20 +6,20 @@ function filterLotteries(lotteries, filter) {
   let endDateIndex = 6;
 
   switch (filter) {
-    case "Order by prize":
+    case 1:
       return lotteries.slice().sort((a, b) => {
         return (
           ethers.utils.formatEther(b[prizeIndex]) -
           ethers.utils.formatEther(a[prizeIndex])
         );
       });
-    case "Order by date":
+    case 2:
       return lotteries.slice().sort((a, b) => {
         return b[endDateIndex] * 1000 - a[endDateIndex] * 1000;
       });
-    case "Active":
+    case 3:
       return lotteries.slice().filter((lottery) => !lottery[isFinishedIndex]);
-    case "Finished":
+    case 4:
       return lotteries.slice().filter((lottery) => lottery[isFinishedIndex]);
     default:
       return lotteries;
