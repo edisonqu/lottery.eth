@@ -18,9 +18,9 @@ function filterLotteries(lotteries, filter) {
         return b[endDateIndex] * 1000 - a[endDateIndex] * 1000;
       });
     case "Active":
-      return lotteries.slice().filter((lottery) => lottery[isFinishedIndex]);
-    case "Finished":
       return lotteries.slice().filter((lottery) => !lottery[isFinishedIndex]);
+    case "Finished":
+      return lotteries.slice().filter((lottery) => lottery[isFinishedIndex]);
     default:
       return lotteries;
   }
