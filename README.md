@@ -128,7 +128,6 @@ Are you interested in adding new features to this project? Your ideas are always
 
 Here are some pending TODO's that I have:
 
-- [ ] Improve cards UI
 - [ ] Add a presentation section when wallet isn't connected
 - [x] Refactor index.js
 - [ ] Create a filter to show lotteries in certain conditions (active, finished, ordered by prize, etc.)
