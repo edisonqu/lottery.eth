@@ -27,7 +27,6 @@ contract LotteryGame is VRFConsumerBase {
     mapping(uint256 => uint256) public playersCount;
     bytes32 private keyHash;
     uint256 private fee;
-    address private admin;
 
     event RandomnessRequested(bytes32, uint256);
     event WinnerDeclared(bytes32, uint256, address);
@@ -43,18 +42,11 @@ contract LotteryGame is VRFConsumerBase {
     ) VRFConsumerBase(vrfCoordinator, link) {
         keyHash = _keyhash;
         fee = _fee;
-        admin = msg.sender;
-    }
-
-    modifier onlyAdmin() {
-        require(msg.sender == admin, "Only callable by admin");
-        _;
     }
 
     function createLottery(uint256 _ticketPrice, uint256 _seconds)
         public
         payable
-        onlyAdmin
     {
         // solhint-disable-next-line
         require(_ticketPrice > 0, "Ticket price must be greater than 0");
@@ -95,7 +87,7 @@ contract LotteryGame is VRFConsumerBase {
         emit PrizeIncreased(lottery.lotteryId, lottery.prize);
     }
 
-    function declareWinner(uint256 _lotteryId) public onlyAdmin {
+    function declareWinner(uint256 _lotteryId) public {
         Lottery storage lottery = lotteries[_lotteryId];
         require(block.timestamp > lottery.endDate,"Lottery is still active");
         require(!lottery.isFinished,"Lottery has already declared a winner");

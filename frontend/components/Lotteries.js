@@ -17,7 +17,6 @@ import { formatTime } from "../utils/formatTime";
 import { appChainId } from "../constants/contract";
 
 const ticketImg = "/ticket.svg";
-const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const searchingLotteriesGif = "/searching-lotteries.gif";
 
@@ -180,19 +179,17 @@ const Lotteries = ({
                   onClick={() => participate(lotteryId, ticketPrice)}
                   theme="primary"
                 />
-                {account == CONTRACT_OWNER && (
-                  <Button
-                    disabled={isFinished || !endDateWasReached}
-                    text={isFinished ? "Winner declared" : "Declare winner"}
-                    theme={isFinished ? "translucent" : "primary"}
-                    icon={isFinished ? "lockClosed" : "check"}
-                    type="button"
-                    isLoading={isDeclaringWinner}
-                    loadingText="Declaring winner..."
-                    isFullWidth
-                    onClick={() => declareWinner(lotteryId)}
-                  />
-                )}
+                <Button
+                  disabled={isFinished || !endDateWasReached}
+                  text={isFinished ? "Winner declared" : "Declare winner"}
+                  theme={isFinished ? "translucent" : "primary"}
+                  icon={isFinished ? "lockClosed" : "check"}
+                  type="button"
+                  isLoading={isDeclaringWinner}
+                  loadingText="Declaring winner..."
+                  isFullWidth
+                  onClick={() => declareWinner(lotteryId)}
+                />
               </div>
               <Button
                 text={

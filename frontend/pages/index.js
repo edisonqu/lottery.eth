@@ -19,7 +19,6 @@ import Presentation from "../components/Presentation";
 import ConnectWallet from "../components/ConnectWallet";
 import { appChainId } from "../constants/contract";
 
-const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const presentationImg = "/presentation.png";
 
@@ -28,7 +27,6 @@ export default function Home() {
 
   const dispatch = useNotification();
   const contract = useContract();
-  const isOwner = account === CONTRACT_OWNER;
 
   const [lotteries, setLotteries] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -128,7 +126,7 @@ export default function Home() {
         <Presentation />
         {active ? (
           <>
-            {isOwner && appChainId === chainId && (
+            {appChainId === chainId && (
               <div className={styles.connected}>
                 <Button
                   icon="plus"
