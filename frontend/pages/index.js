@@ -128,7 +128,7 @@ export default function Home() {
         <Presentation />
         {active ? (
           <>
-            {isOwner && (
+            {isOwner && appChainId === chainId && (
               <div className={styles.connected}>
                 <Button
                   icon="plus"
