@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3em auto;
+  width: 300px;
+  z-index: 50;
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  font-size: 12px;
+  left: 30px;
+  color: #585858;
+  z-index: 100;
+  font-family: "VT323";
+}
+
+.button {
+  position: absolute;
+  bottom: 10px;
+}

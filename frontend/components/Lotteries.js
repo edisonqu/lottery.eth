@@ -1,18 +1,23 @@
 import Image from "next/image";
 import styles from "../styles/Lotteries.module.css";
 
-import { ethers } from "ethers";
 import { Button, Hero, Icon } from "web3uikit";
+import SearchingLotteries from "./SearchingLotteries";
+import WrongChainId from "./WrongChainId";
+
+import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import useContract from "../hooks/useContract";
 import { useNotification } from "web3uikit";
 
 import { formatTime } from "../utils/formatTime";
 import handleNewNotification from "../utils/handleNewNotification";
+import { appChainId } from "../constants/contract";
 
 const ticketImg = "/ticket.svg";
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+const searchingLotteriesGif = "/searching-lotteries.gif";
 
 const Lotteries = ({
   lotteries,
@@ -21,7 +26,7 @@ const Lotteries = ({
   isDeclaringWinner,
   setIsDeclaringWinner,
 }) => {
-  const { account } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const contract = useContract();
   const dispatch = useNotification();
 
@@ -60,7 +65,9 @@ const Lotteries = ({
     });
   }
 
-  return (
+  return appChainId !== chainId ? (
+    <WrongChainId />
+  ) : lotteries.length !== 0 ? (
     <div className={styles.lotteries}>
       {lotteries.map((lottery, i) => {
         let [
@@ -165,6 +172,8 @@ const Lotteries = ({
         );
       })}
     </div>
+  ) : (
+    <SearchingLotteries />
   );
 };
 

@@ -17,13 +17,14 @@ import handleNewNotification from "../utils/handleNewNotification";
 import { alertError } from "../utils/swal";
 import Presentation from "../components/Presentation";
 import ConnectWallet from "../components/ConnectWallet";
+import { appChainId } from "../constants/contract";
 
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const presentationImg = "/presentation.png";
 
 export default function Home() {
-  const { account, active, deactivate } = useWeb3React();
+  const { account, active, chainId, deactivate } = useWeb3React();
 
   const dispatch = useNotification();
   const contract = useContract();
@@ -37,7 +38,7 @@ export default function Home() {
   const [isDeclaringWinner, setIsDeclaringWinner] = useState(false);
 
   async function updateLotteries() {
-    if (active) {
+    if (active && chainId == appChainId) {
       try {
         let lotteries = await contract.getLotteries();
         setLotteries(lotteries);
