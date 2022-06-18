@@ -5,3 +5,11 @@
   max-width: 250px;
   margin: auto;
 }
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}

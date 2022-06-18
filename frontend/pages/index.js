@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import Image from "next/image";
 import { ethers } from "ethers";
 
 import Lotteries from "../components/Lotteries";
@@ -19,6 +20,7 @@ import ConnectWallet from "../components/ConnectWallet";
 
 const CONTRACT_OWNER = "0xA853Ad7156aaC80A5Ff6F8dcC32146d18f01E441";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+const presentationImg = "/presentation.png";
 
 export default function Home() {
   const { account, active, deactivate } = useWeb3React();
@@ -153,7 +155,12 @@ export default function Home() {
             />
           </>
         ) : (
-          <ConnectWallet />
+          <>
+            <ConnectWallet />
+            <div className={styles.imageContainer}>
+              <Image src={presentationImg} width={500} height={500} />
+            </div>
+          </>
         )}
       </>
       <Footer />
