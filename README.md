@@ -17,11 +17,15 @@ This is a project in which people can join a lottery by paying a ticket price wi
 
 #
 
-<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783858466476052/lottery-demo-1.PNG" width="1200" />
-<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783858743279636/lottery-demo-2.PNG" width="1200" />
-<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859032711198/lottery-demo-3.PNG" width="1200" />
-<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859280158730/lottery-demo-4.PNG" width="1200" />
-<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859565375488/lottery-demo-5.PNG" width="1200" />
+
+<p align="center">
+<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783858466476052/lottery-demo-1.PNG" width="300" />
+<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783858743279636/lottery-demo-2.PNG" width="300" />
+<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859032711198/lottery-demo-3.PNG" width="300" />
+<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859280158730/lottery-demo-4.PNG" width="300" />
+<img src="https://cdn.discordapp.com/attachments/954213773676273685/987783859565375488/lottery-demo-5.PNG" width="300" />
+<img src="https://cdn.discordapp.com/attachments/782465358191525959/987785879844192316/unknown.png" width="300" />
+</p>
 
 ## Frontend
 
