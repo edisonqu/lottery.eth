@@ -139,20 +139,7 @@ describe("LotteryGame Unit Tests", () => {
     const tx = await lotteryGame.declareWinner(8);
     const txReceipt = await tx.wait();
 
-    /**
-     * events[0]: Transfer(address,address,uint256) from ERCBasic.sol
-     * events[1]: Transfer(address,address,uint256,bytes) from ERC677 called from ERC677Token.sol
-     * events[2]: RandomnessRequest(address,bytes32,uint256) from VRFCoordinatorMock.sol
-     * events[3]: WinnerDeclared from Lottery.sol
-     *
-     * Source: https://docs.soliditylang.org/en/v0.7.0/abi-spec.html
-     * Topic[0] is keccak(EVENT_NAME+"("+EVENT_ARGS.map(canonical_type_of).join(",")+")")
-     * Topic[1-3] are indexed input attributes
-     *
-     * The request Id is the second argument from the RandomnessRequest event
-     */
     const requestId = txReceipt.events[2].topics[1];
-    // eslint-disable-next-line no-unused-expressions
     expect(requestId).to.be.not.null;
   });
   it("Should emit an event when creating a lottery", async () => {
@@ -198,49 +185,16 @@ describe("LotteryGame Unit Tests", () => {
       "RandomnessRequested"
     );
   });
-  it("Should NOT create lottery if NOT ADMIN", async () => {
-    await expect(
-      lotteryGame
-        .connect(user2)
-        .createLottery(ethers.utils.parseEther("0.001"), DAY * 1)
-    ).to.be.revertedWith("Only callable by admin");
-  });
-  it("Should NOT declare winner if NOT ADMIN", async () => {
-    const networkName = config[chainId].name;
-    const additionalMessage = " --linkaddress " + linkToken.address;
-    if (
-      await autoFundCheck(
-        lotteryGame.address,
-        networkName,
-        linkToken.address,
-        additionalMessage
-      )
-    ) {
-      await hre.run("fund-link", {
-        contract: lotteryGame.address,
-        linkaddress: linkToken.address,
-      });
-    }
-
+  it("Should return the funds to the player if there is only one even if it has partcipated more than once", async () => {
     await lotteryGame.createLottery(ethers.utils.parseEther("0.0005"), DAY * 1);
     await lotteryGame.connect(user2).participate(12, {
       value: ethers.utils.parseEther("0.0005"),
     });
-    await ethers.provider.send("evm_increaseTime", [3600 * 24 * 2]);
-    await expect(
-      lotteryGame.connect(user2).declareWinner(12)
-    ).to.be.revertedWith("Only callable by admin");
-  });
-  it("Should return the funds to the player if there is only one even if it has partcipated more than once", async () => {
-    await lotteryGame.createLottery(ethers.utils.parseEther("0.0005"), DAY * 1);
-    await lotteryGame.connect(user2).participate(13, {
-      value: ethers.utils.parseEther("0.0005"),
-    });
-    await lotteryGame.connect(user2).participate(13, {
+    await lotteryGame.connect(user2).participate(12, {
       value: ethers.utils.parseEther("0.0005"),
     });
     await ethers.provider.send("evm_increaseTime", [3600 * 24 * 2]);
-    await expect(await lotteryGame.declareWinner(13)).to.changeEtherBalance(
+    await expect(await lotteryGame.declareWinner(12)).to.changeEtherBalance(
       user2,
       ethers.utils.parseEther("0.001")
     );
@@ -248,13 +202,13 @@ describe("LotteryGame Unit Tests", () => {
   it("Should finish the lottery even if no one has participated", async () => {
     await lotteryGame.createLottery(ethers.utils.parseEther("0.0005"), DAY * 1);
     await ethers.provider.send("evm_increaseTime", [3600 * 24 * 2]);
-    await lotteryGame.declareWinner(14);
-    expect((await lotteryGame.getLottery(14)).isFinished).to.be.true;
+    await lotteryGame.declareWinner(13);
+    expect((await lotteryGame.getLottery(13)).isFinished).to.be.true;
   });
   it("Should emit an event when declaring winner and there's only one participant or no participants", async () => {
     await lotteryGame.createLottery(ethers.utils.parseEther("0.0005"), DAY * 1);
     await ethers.provider.send("evm_increaseTime", [3600 * 24 * 2]);
-    await expect(lotteryGame.declareWinner(15)).to.emit(
+    await expect(lotteryGame.declareWinner(14)).to.emit(
       lotteryGame,
       "LotteryFinished"
     );
