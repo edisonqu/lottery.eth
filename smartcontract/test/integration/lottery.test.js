@@ -15,12 +15,6 @@ describe("Lottery Integration Tests", () => {
       "LotteryGame",
       LotteryGame.address
     );
-    lotteryGame.on("WinnerDeclared", (a, b, c) => {
-      console.log("Rock");
-      console.log(a);
-      console.log(b);
-      console.log(c);
-    });
   });
   it("Should receive the random number from the Oracle", async () => {
     const createLotteryTx = await lotteryGame.createLottery(
