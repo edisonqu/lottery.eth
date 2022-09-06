@@ -72,53 +72,12 @@ We're now ready to go! Excited? Me too!
 
 ### Installation and usage
 
-So... There are many things going on here so let's try to break them in as small parts as possible.
-
-At first let's install the packages of our project with our good [npm](https://www.npmjs.com/)
+##### Quickstart
 
 ```bash
 npm install
-```
-
-Great! So, let's understand how this project is working...
-
-1. Contract is deployed and the deployer is setted as the admin, our admin can both create lotteries and finish them
-2. The admin creates some lotteries with different end dates and ticket prices
-3. People join the lottery buying a ticket and a prize pool starts raising
-4. Once the end date was reached the admin can finish the lottery and the winner is randomly selected based on a random number
-
-Well, it wasn't that complex right? We create a lottery, people participate, lottery ends and our winner is randomly selected, but... How we make it random? Easy! We use our `Math.random()` function! Or not...
-
-I lied, there isn't something like that in Solidity, and randomness generation isn't very easy to achieve in blockchain because it's **deterministic**, so we can just create pseudorandom numbers. Am I going to explain it? Of course not! But this [article](https://www.sitepoint.com/solidity-pitfalls-random-number-generation-for-ethereum/#:~:text=Solidity%20is%20not%20capable%20of,more%20basic%20solutions%20are%20used.) does it pretty well.
-
-Now that we know that we can't create really randomness with Solidity, what do we do? Cry? Maybe, but, as in most other problems, it was already solved by other people, this is where our **LINK** tokens join the game.
-
-I'd really like to write a lot about descentralized oracles but let's avoid that for the moment, you can anyways start reading about it in the [Chainlink page](https://chain.link/). Let's go on setting up our project
-
-Let's deploy the contract! Run:
-
-```bash
 npx hardhat deploy --network rinkeby
-```
-
-You did it! Now you'll be able to see your deployment in the `deployments/rinkeby` folder and send a screenshot to your friends. You might have seen that terminal sent someting like
-
-```bash
-Run the following command to fund contract with LINK:
 npx hardhat fund-link --contract "A real long contract address" --network rinkeby
-```
-
-So let'so do what our computer tell us to, why not? Thanks to this we'll be able to request randomness to the Chainlink VRF, read more about it [Here](https://docs.chain.link/docs/chainlink-vrf/?_ga=2.221503640.1285041741.1655241044-1458478499.1655241044)
-
-Run:
-
-```bash
-npx hardhat fund-link --contract "A real long contract address" --network rinkeby
-```
-
-And there you're! Everything should be working fine, if you want to make sure you can run the tests:
-
-```bash
 npx hardhat test
 ```
 
