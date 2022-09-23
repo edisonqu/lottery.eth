@@ -1,6 +1,6 @@
 # Chainlink Lottery
 
-#### [Link to the project](https://rockttery.vercel.app/)
+#### [Link to the project](https://lottery-eth.vercel.app/)
 
 ### Welcome!
 
